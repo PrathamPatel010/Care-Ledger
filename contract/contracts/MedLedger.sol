@@ -3,10 +3,10 @@ pragma solidity ^0.8.0;
 
 contract MedLedger {
     address owner;
+    uint256 private patientIdCounter = 1; // Counter to auto-generate patient IDs
 
     struct MedicalRecord {
-        uint256 recordId;
-        string patientName;
+        uint256 id;
         string diagnosis;
         string treatment;
         uint256 timestamp;
@@ -24,13 +24,21 @@ contract MedLedger {
         uint256 timestamp;
     }
 
+    struct PatientInfo {
+        string patientName;
+        string dateOfBirth; // Added field
+        string fathersName;  // Added field
+        string bloodGroup;   // Added field
+    }
+
     struct PatientData {
         Vaccine[] vaccinesTaken;
         DrugAllergy[] drugAllergies;
+        PatientInfo patientInfo;
     }
 
     mapping(uint256 => MedicalRecord[]) private medicalRecords;
-    mapping(uint256 => PatientData) private patientData; // Mapping for vaccines and allergies
+    mapping(uint256 => PatientData) private patientData;
     mapping(address => bool) private authorizedProviders;
 
     modifier onlyOwner() {
@@ -45,6 +53,7 @@ contract MedLedger {
 
     constructor() {
         owner = msg.sender;
+        authorizedProviders[owner] = true; // Automatically authorize the owner
     }
 
     function getOwner() public view returns (address) {
@@ -55,15 +64,36 @@ contract MedLedger {
         authorizedProviders[provider] = true;
     }
 
+    // Create a new patient with auto-generated patient ID
+    function createPatient(
+        string memory patientName,
+        string memory dateOfBirth,
+        string memory fathersName,
+        string memory bloodGroup
+    ) public onlyAuthorizedProvider returns (uint256) {
+        uint256 newPatientId = patientIdCounter;
+        patientIdCounter++; // Increment the patient ID counter for next patient
+
+        PatientInfo memory info = PatientInfo({
+            patientName: patientName,
+            dateOfBirth: dateOfBirth,
+            fathersName: fathersName,
+            bloodGroup: bloodGroup
+        });
+
+        patientData[newPatientId].patientInfo = info;
+
+        return newPatientId; // Return the generated patient ID
+    }
+
     function addRecord(
         uint256 patientId,
-        string memory patientName,
         string memory diagnosis,
         string memory treatment
     ) public onlyAuthorizedProvider {
         uint256 recordId = medicalRecords[patientId].length + 1;
         medicalRecords[patientId].push(
-            MedicalRecord(recordId, patientName, diagnosis, treatment, block.timestamp)
+            MedicalRecord(recordId, diagnosis, treatment, block.timestamp)
         );
     }
 
@@ -77,19 +107,21 @@ contract MedLedger {
         patientData[patientId].drugAllergies.push(DrugAllergy(allergyId, allergy, block.timestamp));
     }
 
-    function getRecords(uint256 patientId) 
-        public 
-        view 
-        onlyAuthorizedProvider 
+    function getRecords(uint256 patientId)
+        public
+        view
+        onlyAuthorizedProvider
         returns (
-            MedicalRecord[] memory, 
-            Vaccine[] memory, 
+            PatientInfo memory,
+            MedicalRecord[] memory,
+            Vaccine[] memory,
             DrugAllergy[] memory
-        ) 
+        )
     {
         return (
-            medicalRecords[patientId], 
-            patientData[patientId].vaccinesTaken, 
+            patientData[patientId].patientInfo,
+            medicalRecords[patientId],
+            patientData[patientId].vaccinesTaken,
             patientData[patientId].drugAllergies
         );
     }
