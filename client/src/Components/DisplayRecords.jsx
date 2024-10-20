@@ -1,10 +1,17 @@
 import { useLocation } from "react-router-dom";
+import { formatDate } from "../utils/helper";
 
 const DisplayRecords = () => {
   const location = useLocation();
-  const { patientRecords, vaccinesTaken, drugAllergies } = location.state || {};
+  const {
+    authorized,
+    patientData,
+    patientRecords,
+    vaccinesTaken,
+    drugAllergies,
+  } = location.state || {};
 
-  if (!patientRecords) {
+  if (!authorized) {
     return <h1 className="text-4xl text-center">Unauthorized Access</h1>;
   }
 
@@ -15,13 +22,47 @@ const DisplayRecords = () => {
       </h1>
     );
   }
+  console.log({
+    authorized,
+    patientData,
+    patientRecords,
+    vaccinesTaken,
+    drugAllergies,
+  });
 
   return (
     <>
-      {/* Patient Name */}
-      <div className="mt-5 pt-5 text-slate-200 w-full text-center rounded-md text-4xl">
-        Patient Name: {patientRecords[0]?.patientName}
-      </div>
+      {/* Patient Info */}
+      <table className="mt-3 w-4/5 mx-auto table-auto bg-gray-100 text-black">
+        <thead className="bg-gray-300">
+          <tr>
+            <th
+              className="p-2 text-black text-3xl text-center border-b border-black"
+              colSpan={2}
+            >
+              Patient Information
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b border-gray-300">
+            <td className="py-2 px-4 font-semibold">Name:</td>
+            <td className="py-2 px-4">{patientData.patientName}</td>
+          </tr>
+          <tr className="border-b border-gray-300">
+            <td className="py-2 px-4 font-semibold">Father&apos;s Name:</td>
+            <td className="py-2 px-4">{patientData.fathersName}</td>
+          </tr>
+          <tr className="border-b border-gray-300">
+            <td className="py-2 px-4 font-semibold">DOB:</td>
+            <td className="py-2 px-4">{formatDate(patientData.dateOfBirth)}</td>
+          </tr>
+          <tr className="border-b border-gray-300">
+            <td className="py-2 px-4 font-semibold">Blood Group:</td>
+            <td className="py-2 px-4">{patientData.bloodGroup}</td>
+          </tr>
+        </tbody>
+      </table>
 
       {/* Medical History data */}
       <table className="mt-3 w-4/5 mx-auto table-auto bg-gray-100 rounded-xl">
@@ -46,9 +87,7 @@ const DisplayRecords = () => {
             return (
               <tr key={index} className="text-center border-b border-black">
                 <td className="p-2 text-black">
-                  {record.recordId._hex
-                    ? parseInt(record.recordId._hex, 16)
-                    : "NA"}
+                  {record.id._hex ? parseInt(record.id._hex, 16) : "NA"}
                 </td>
                 <td className="p-2 text-black">{record.diagnosis}</td>
                 <td className="p-2 text-black">{record.treatment}</td>
