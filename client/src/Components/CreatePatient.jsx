@@ -1,4 +1,3 @@
-// CreatePatient.js
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Header from "./Header";
@@ -26,9 +25,9 @@ const CreatePatient = ({ contract, isOwner }) => {
   };
 
   return (
-    <>
+    <main className="bg-[#171718]">
       <Header isOwner={isOwner} />
-      <div className="flex justify-center items-center min-h-screen bg-gray-900 p-5">
+      <div className="flex justify-center items-center mt-5 pt-10">
         <form
           onSubmit={createPatient}
           className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6"
@@ -76,7 +75,7 @@ const CreatePatient = ({ contract, isOwner }) => {
           </button>
         </form>
       </div>
-    </>
+    </main>
   );
 };
 

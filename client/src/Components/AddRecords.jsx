@@ -1,4 +1,3 @@
-// AddRecords.js
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Header from "./Header";
@@ -54,7 +53,7 @@ const AddRecords = ({ contract,isOwner }) => {
   };
 
   return (
-    <>
+    <main className="bg-[#171718]">
       <Header isOwner={isOwner}/>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 p-5">
         {/* Add Medical Record Form */}
@@ -155,7 +154,7 @@ const AddRecords = ({ contract,isOwner }) => {
           </button>
         </form>
       </div>
-    </>
+    </main>
   );
 };
 

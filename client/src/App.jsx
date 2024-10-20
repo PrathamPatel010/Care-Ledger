@@ -1,4 +1,3 @@
-// App.js
 import "./App.css";
 import { useEffect, useState } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -50,10 +49,6 @@ function App() {
     connectWallet();
   }, []);
 
-  useEffect(() => {
-    console.log({ account, contract, isOwner });
-  }, [account, contract, isOwner]);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -71,11 +66,11 @@ function App() {
         />
         <Route
           path="/add-records"
-          element={<AddRecords isOwner={isOwner} contract={contract} />}
+          element={<AddRecords contract={contract} />}
         />
         <Route
           path="/fetch-records"
-          element={<FetchRecords isOwner={isOwner} contract={contract} />}
+          element={<FetchRecords contract={contract} />}
         />
         <Route path="/records" element={<DisplayRecords />} />
       </Routes>

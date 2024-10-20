@@ -1,4 +1,3 @@
-// AuthorizeProvider.js
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Header from "./Header";
@@ -18,9 +17,9 @@ const AuthorizeProvider = ({ contract, isOwner }) => {
   };
 
   return (
-    <>
+    <main className="bg-[#171718]">
       <Header isOwner={isOwner}/>
-      <div className="flex justify-center items-center min-h-screen bg-gray-900 p-5">
+      <div className="flex justify-center items-center mt-10 pt-10">
         <form
           onSubmit={authorizeProvider}
           className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6"
@@ -42,11 +41,11 @@ const AuthorizeProvider = ({ contract, isOwner }) => {
             className="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md w-full transition duration-200"
             disabled={!isOwner} // Disable button if not the owner
           >
-            Authorize Provider
+            Authorize
           </button>
         </form>
       </div>
-    </>
+    </main>
   );
 };
 

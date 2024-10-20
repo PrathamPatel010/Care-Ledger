@@ -29,14 +29,16 @@ const FetchRecords = ({ contract, isOwner }) => {
   };
 
   return (
-    <>
+    <main className="bg-[#171718]">
       <Header isOwner={isOwner} />
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 p-5">
+      <div className="flex flex-col items-center justify-center mt-5 p-10">
         <form
           onSubmit={fetchRecords}
           className="bg-gray-800 p-6 rounded-lg shadow-lg w-full sm:w-80"
         >
-        <h1 className="text-white text-2xl mb-6 text-center">Fetch Patient Records</h1>
+          <h1 className="text-white text-2xl mb-6 text-center">
+            Fetch Patient Records
+          </h1>
           <input
             type="text"
             value={patientId}
@@ -53,7 +55,7 @@ const FetchRecords = ({ contract, isOwner }) => {
           </button>
         </form>
       </div>
-    </>
+    </main>
   );
 };
 

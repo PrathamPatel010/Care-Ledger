@@ -15,6 +15,14 @@ const DisplayRecords = () => {
     return <h1 className="text-4xl text-center">Unauthorized Access</h1>;
   }
 
+  if (!patientData.patientName) {
+    return (
+      <h1 className="text-4xl text-center">
+        Patient with this ID does not exist
+      </h1>
+    );
+  }
+
   if (patientRecords.length === 0) {
     return (
       <h1 className="text-4xl text-center">
@@ -31,7 +39,7 @@ const DisplayRecords = () => {
   });
 
   return (
-    <>
+    <main className="bg-[#171718]">
       {/* Patient Info */}
       <table className="mt-3 w-4/5 mx-auto table-auto bg-gray-100 text-black">
         <thead className="bg-gray-300">
@@ -175,7 +183,7 @@ const DisplayRecords = () => {
           })}
         </tbody>
       </table>
-    </>
+    </main>
   );
 };
 
