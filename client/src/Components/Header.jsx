@@ -10,63 +10,55 @@ const Header = ({ account, isOwner }) => {
   };
 
   return (
-    <main className="bg-[#171718] pt-10">
+    <main className="p-10 bg-gradient-to-b from-gray-900 to-gray-800">
       <div className="flex flex-col items-center space-y-3">
-        <h1 className="text-green-400 text-4xl">CareLedger</h1>
+        <h1 className="text-green-400 text-5xl font-bold transition-transform duration-300 transform hover:scale-110">
+          CareLedger
+        </h1>
       </div>
 
       {/* Hamburger Menu Button */}
       <div className="block sm:hidden">
         <button
           onClick={toggleNav}
-          className="text-white text-2xl focus:outline-none"
+          className="text-white text-2xl focus:outline-none hover:scale-110 transition-transform duration-200"
         >
-          {isNavOpen ? "✖" : "☰"}{" "}
-          {/* Display X when open, Hamburger when closed */}
+          {isNavOpen ? "✖" : "☰"}
         </button>
       </div>
 
       {/* Navbar */}
-      <nav
-        className={`mt-5 ${isNavOpen ? "block" : "hidden"} sm:block`} // Show or hide based on state
-      >
+      <nav className={`mt-5 ${isNavOpen ? "block" : "hidden"} sm:block`}>
         <ul className="flex flex-col text-center sm:flex-row space-y-2 sm:space-y-0 sm:space-x-5 text-white text-lg justify-center">
-          <li>
-            <Link to="/" className="hover:text-green-400">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/new-patient" className="hover:text-green-400">
-              Add Patient
-            </Link>
-          </li>
-          <li>
-            <Link to="/authorize-provider" className="hover:text-green-400">
-              Authorize Provider
-            </Link>
-          </li>
-          <li>
-            <Link to="/add-records" className="hover:text-green-400">
-              Add Records
-            </Link>
-          </li>
-          <li>
-            <Link to="/fetch-records" className="hover:text-green-400">
-              Fetch Records
-            </Link>
-          </li>
-          <li>
-            <Link to="/records" className="hover:text-green-400">
-              View Records
-            </Link>
-          </li>
+          {[
+            "Home",
+            "Add Patient",
+            "Authorize Provider",
+            "Add Records",
+            "Fetch Records",
+            "View Records",
+          ].map((item, index) => (
+            <li key={index}>
+              <Link
+                to={`/${item.toLowerCase().replace(/ /g, "-")}`}
+                className="hover:text-green-400 transition duration-200"
+              >
+                {item}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
 
-      <div className="flex flex-col items-center">
-        {account && <div className="text-lg">Account connected: {account}</div>}
-        {isOwner && <p className="text-lg">You are the contract owner</p>}
+      <div className="flex flex-col items-center mt-5">
+        {account && (
+          <div className="text-lg text-white text-wrap">
+            Account connected: {account}
+          </div>
+        )}
+        {isOwner && (
+          <p className="text-lg text-green-400">You are the contract owner</p>
+        )}
       </div>
     </main>
   );

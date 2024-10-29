@@ -25,51 +25,52 @@ const CreatePatient = ({ contract, isOwner }) => {
   };
 
   return (
-    <main className="bg-[#171718]">
+    <main className="bg-gradient-to-b from-gray-900 to-gray-800">
       <Header isOwner={isOwner} />
-      <div className="flex justify-center items-center mt-5 pt-10">
+      <div className="py-14 px-5 flex justify-center items-center mt-5 pt-10">
         <form
           onSubmit={createPatient}
-          className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6"
+          className="bg-gray-800 p-8 rounded-lg shadow-lg transition-all transform hover:scale-105 w-full max-w-md space-y-6"
         >
           <h2 className="text-2xl text-center text-white">
             Create New Patient
           </h2>
-
-          <input
-            type="text"
-            value={patientName}
-            onChange={(e) => setPatientName(e.target.value)}
-            placeholder="Patient Name"
-            className="input text-gray-900 bg-gray-300 rounded-md p-2 w-full"
-          />
-
-          <input
-            type="date"
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
-            className="input text-gray-900 bg-gray-300 rounded-md p-2 w-full"
-          />
-
-          <input
-            type="text"
-            value={fatherName}
-            onChange={(e) => setFatherName(e.target.value)}
-            placeholder="Father's Name"
-            className="input text-gray-900 bg-gray-300 rounded-md p-2 w-full"
-          />
-
-          <input
-            type="text"
-            value={bloodGroup}
-            onChange={(e) => setBloodGroup(e.target.value)}
-            placeholder="Blood Group"
-            className="input text-gray-900 bg-gray-300 rounded-md p-2 w-full"
-          />
-
+          {[
+            {
+              value: patientName,
+              setValue: setPatientName,
+              placeholder: "Patient Name",
+            },
+            {
+              value: dob,
+              setValue: setDob,
+              placeholder: "Date of Birth",
+              type: "date",
+            },
+            {
+              value: fatherName,
+              setValue: setFatherName,
+              placeholder: "Father's Name",
+            },
+            {
+              value: bloodGroup,
+              setValue: setBloodGroup,
+              placeholder: "Blood Group",
+            },
+          ].map((input, index) => (
+            <input
+              key={index}
+              type={input.type || "text"}
+              value={input.value}
+              onChange={(e) => input.setValue(e.target.value)}
+              placeholder={input.placeholder}
+              className="input text-gray-900 bg-gray-300 rounded-md p-2 w-full"
+              required
+            />
+          ))}
           <button
             type="submit"
-            className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md w-full transition duration-200"
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md w-full transition duration-200"
           >
             Create Patient
           </button>

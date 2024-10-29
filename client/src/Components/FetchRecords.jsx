@@ -13,7 +13,7 @@ const FetchRecords = ({ contract, isOwner }) => {
       // console.log(await contract.getRecords(patientId));
       const [patientData, medicalRecords, vaccinesTaken, drugAllergies] =
         await contract.getRecords(patientId);
-      navigate("/records", {
+      navigate("/view-records", {
         state: {
           authorized: true,
           patientData: patientData || {},
@@ -29,14 +29,14 @@ const FetchRecords = ({ contract, isOwner }) => {
   };
 
   return (
-    <main className="bg-[#171718]">
+    <main className="bg-gradient-to-b from-gray-900 to-gray-800">
       <Header isOwner={isOwner} />
-      <div className="flex flex-col items-center justify-center mt-5 p-10">
+      <div className="py-14 px-5 flex flex-col items-center justify-center mt-5">
         <form
           onSubmit={fetchRecords}
-          className="bg-gray-800 p-6 rounded-lg shadow-lg w-full sm:w-80"
+          className="bg-gray-800 p-8 rounded-lg shadow-lg transition-all transform hover:scale-105 w-full max-w-md space-y-6"
         >
-          <h1 className="text-white text-2xl mb-6 text-center">
+          <h1 className="text-2xl text-center text-white">
             Fetch Patient Records
           </h1>
           <input
@@ -44,12 +44,12 @@ const FetchRecords = ({ contract, isOwner }) => {
             value={patientId}
             onChange={(e) => setPatientId(e.target.value)}
             placeholder="Patient ID"
-            className="input text-black w-full p-3 mb-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="input text-gray-900 bg-gray-300 rounded-md p-2 w-full"
             required
           />
           <button
             type="submit"
-            className="btn bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-md w-full"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md w-full transition duration-200"
           >
             Fetch Records
           </button>

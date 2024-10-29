@@ -30,16 +30,9 @@ const DisplayRecords = () => {
       </h1>
     );
   }
-  console.log({
-    authorized,
-    patientData,
-    patientRecords,
-    vaccinesTaken,
-    drugAllergies,
-  });
 
   return (
-    <main className="bg-[#171718]">
+    <main className="bg-[#131b2a] py-10 px-2">
       {/* Patient Info */}
       <table className="mt-3 w-4/5 mx-auto table-auto bg-gray-100 text-black">
         <thead className="bg-gray-300">

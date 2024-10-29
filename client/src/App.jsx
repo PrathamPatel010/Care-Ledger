@@ -53,11 +53,15 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
+          path="/home"
+          element={<Header account={account} isOwner={isOwner} />}
+        />
+        <Route
           path="/"
           element={<Header account={account} isOwner={isOwner} />}
         />
         <Route
-          path="/new-patient"
+          path="/add-patient"
           element={<CreatePatient isOwner={isOwner} contract={contract} />}
         />
         <Route
@@ -72,7 +76,7 @@ function App() {
           path="/fetch-records"
           element={<FetchRecords contract={contract} />}
         />
-        <Route path="/records" element={<DisplayRecords />} />
+        <Route path="/view-records" element={<DisplayRecords />} />
       </Routes>
     </BrowserRouter>
   );

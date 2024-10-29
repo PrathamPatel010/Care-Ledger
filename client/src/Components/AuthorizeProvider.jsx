@@ -17,17 +17,16 @@ const AuthorizeProvider = ({ contract, isOwner }) => {
   };
 
   return (
-    <main className="bg-[#171718]">
-      <Header isOwner={isOwner}/>
-      <div className="flex justify-center items-center mt-10 pt-10">
+    <main className="bg-gradient-to-b from-gray-900 to-gray-800">
+      <Header isOwner={isOwner} />
+      <div className="py-14 px-5 flex justify-center items-center mt-10">
         <form
           onSubmit={authorizeProvider}
-          className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6"
+          className="bg-gray-800 p-8 rounded-lg shadow-lg transition-all transform hover:scale-105 w-full max-w-md space-y-6"
         >
           <h2 className="text-2xl text-center text-white">
             Authorize Provider
           </h2>
-
           <input
             type="text"
             value={providerAddress}
@@ -35,11 +34,10 @@ const AuthorizeProvider = ({ contract, isOwner }) => {
             placeholder="Provider Address"
             className="input text-gray-900 bg-gray-300 rounded-md p-2 w-full"
           />
-
           <button
             type="submit"
-            className="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md w-full transition duration-200"
-            disabled={!isOwner} // Disable button if not the owner
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md w-full transition duration-200"
+            disabled={!isOwner}
           >
             Authorize
           </button>

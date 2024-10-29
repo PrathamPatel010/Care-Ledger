@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import Header from "./Header";
 
-const AddRecords = ({ contract,isOwner }) => {
+const AddRecords = ({ contract, isOwner }) => {
   const [patientId, setPatientId] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
   const [treatment, setTreatment] = useState("");
@@ -53,106 +53,92 @@ const AddRecords = ({ contract,isOwner }) => {
   };
 
   return (
-    <main className="bg-[#171718]">
-      <Header isOwner={isOwner}/>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 p-5">
-        {/* Add Medical Record Form */}
-        <form
-          className="bg-gray-700 p-6 rounded-lg flex flex-col items-center space-y-3"
-          onSubmit={addRecord}
-        >
-          <span className="text-white text-2xl">Add New Record</span>
-          <input
-            placeholder="Patient ID"
-            value={patientId}
-            onChange={(e) => setPatientId(e.target.value)}
-            type="text"
-            className="text-black w-full p-2 rounded-md"
-            required
-          />
-          <input
-            placeholder="Diagnosis"
-            value={diagnosis}
-            onChange={(e) => setDiagnosis(e.target.value)}
-            type="text"
-            className="text-black w-full p-2 rounded-md"
-            required
-          />
-          <input
-            placeholder="Treatment"
-            value={treatment}
-            onChange={(e) => setTreatment(e.target.value)}
-            type="text"
-            className="text-black w-full p-2 rounded-md"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-md"
+    <main className="bg-gradient-to-b from-gray-900 to-gray-800">
+      <Header isOwner={isOwner} />
+      <div className="py-14 px-4 grid grid-cols-1 sm:grid-cols-3 gap-5">
+        {[
+          {
+            title: "Add New Record",
+            submitFunction: addRecord,
+            inputs: [
+              {
+                placeholder: "Patient ID",
+                value: patientId,
+                setValue: setPatientId,
+              },
+              {
+                placeholder: "Diagnosis",
+                value: diagnosis,
+                setValue: setDiagnosis,
+              },
+              {
+                placeholder: "Treatment",
+                value: treatment,
+                setValue: setTreatment,
+              },
+            ],
+            buttonColor: "bg-blue-600 hover:bg-blue-500",
+          },
+          {
+            title: "Add Vaccine",
+            submitFunction: addVaccine,
+            inputs: [
+              {
+                placeholder: "Patient ID",
+                value: patientId,
+                setValue: setPatientId,
+              },
+              {
+                placeholder: "Vaccine Name",
+                value: vaccineName,
+                setValue: setVaccineName,
+              },
+            ],
+            buttonColor: "bg-green-600 hover:bg-green-500",
+          },
+          {
+            title: "Add Allergy",
+            submitFunction: addAllergy,
+            inputs: [
+              {
+                placeholder: "Patient ID",
+                value: patientId,
+                setValue: setPatientId,
+              },
+              {
+                placeholder: "Drug Name",
+                value: allergyName,
+                setValue: setAllergyName,
+              },
+            ],
+            buttonColor: "bg-red-600 hover:bg-red-500",
+          },
+        ].map(({ title, submitFunction, inputs, buttonColor }, index) => (
+          <form
+            key={index}
+            className="bg-gray-700 p-6 rounded-lg shadow-lg transition-all transform hover:scale-105 text-center flex flex-col gap-y-5"
+            onSubmit={submitFunction}
           >
-            Add Record
-          </button>
-        </form>
-
-        {/* Add Vaccine Form */}
-        <form
-          className="bg-gray-700 p-6 rounded-lg flex flex-col items-center space-y-3"
-          onSubmit={addVaccine}
-        >
-          <span className="text-white text-2xl">Add Vaccine</span>
-          <input
-            placeholder="Patient ID"
-            value={patientId}
-            onChange={(e) => setPatientId(e.target.value)}
-            type="text"
-            className="text-black w-full p-2 rounded-md"
-            required
-          />
-          <input
-            placeholder="Vaccine Name"
-            value={vaccineName}
-            onChange={(e) => setVaccineName(e.target.value)}
-            type="text"
-            className="text-black w-full p-2 rounded-md"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded-md"
-          >
-            Add Vaccine
-          </button>
-        </form>
-
-        {/* Add Allergy Form */}
-        <form
-          className="bg-gray-700 p-6 rounded-lg flex flex-col items-center space-y-3"
-          onSubmit={addAllergy}
-        >
-          <span className="text-white text-2xl">Add Allergy</span>
-          <input
-            placeholder="Patient ID"
-            value={patientId}
-            onChange={(e) => setPatientId(e.target.value)}
-            type="text"
-            className="text-black w-full p-2 rounded-md"
-            required
-          />
-          <input
-            placeholder="Drug Name"
-            value={allergyName}
-            onChange={(e) => setAllergyName(e.target.value)}
-            type="text"
-            className="text-black w-full p-2 rounded-md"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-red-600 hover:bg-red-500 text-white py-2 px-4 rounded-md"
-          >
-            Add Allergy
-          </button>
-        </form>
+            <span className="text-white text-2xl mb-3">{title}</span>
+            {inputs.map((input, i) => (
+              <input
+                key={i}
+                placeholder={input.placeholder}
+                value={input.value}
+                onChange={(e) => input.setValue(e.target.value)}
+                type="text"
+                className="text-black w-full p-2 rounded-md"
+                required
+              />
+            ))}
+            <button
+              type="submit"
+              className={`${buttonColor} text-white py-2 px-4 rounded-md transition duration-200`}
+            >
+              {title.split(" ")[1]} Record
+            </button>
+          </form>
+        ))}
       </div>
     </main>
   );
@@ -160,7 +146,7 @@ const AddRecords = ({ contract,isOwner }) => {
 
 AddRecords.propTypes = {
   contract: PropTypes.object,
-  isOwner: PropTypes.bool
+  isOwner: PropTypes.bool,
 };
 
 export default AddRecords;
