@@ -36,7 +36,6 @@ const Header = ({ account, isOwner }) => {
             "Authorize Provider",
             "Add Records",
             "Fetch Records",
-            "View Records",
           ].map((item, index) => (
             <li key={index}>
               <Link

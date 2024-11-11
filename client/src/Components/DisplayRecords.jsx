@@ -47,7 +47,7 @@ const DisplayRecords = () => {
         </thead>
         <tbody>
           <tr className="border-b border-gray-300">
-            <td className="py-2 px-4 font-semibold">Name:</td>
+            <td className="py-2 px-4 font-semibold w-40">Name:</td>
             <td className="py-2 px-4">{patientData.patientName}</td>
           </tr>
           <tr className="border-b border-gray-300">
