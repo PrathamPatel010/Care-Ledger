@@ -4,6 +4,8 @@ import Header from "./Header";
 
 const AddRecords = ({ contract, isOwner }) => {
   const [patientId, setPatientId] = useState("");
+  const [patientIdForVaccine,setPatientIdForVaccine] = useState("");
+  const [patientIdForDrug,setPatientIdForDrug] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
   const [treatment, setTreatment] = useState("");
   const [vaccineName, setVaccineName] = useState("");
@@ -27,11 +29,11 @@ const AddRecords = ({ contract, isOwner }) => {
   const addVaccine = async (e) => {
     e.preventDefault();
     try {
-      const tx = await contract.addVaccineTaken(patientId, vaccineName);
+      const tx = await contract.addVaccineTaken(patientIdForVaccine, vaccineName);
       await tx.wait();
       alert("Vaccine added successfully");
       // Reset fields after submission
-      setPatientId("");
+      setPatientIdForVaccine("");
       setVaccineName("");
     } catch (err) {
       console.log("Error adding vaccine: ", err);
@@ -41,11 +43,11 @@ const AddRecords = ({ contract, isOwner }) => {
   const addAllergy = async (e) => {
     e.preventDefault();
     try {
-      const tx = await contract.addDrugAllergy(patientId, allergyName);
+      const tx = await contract.addDrugAllergy(patientIdForDrug, allergyName);
       await tx.wait();
       alert("Allergy added successfully");
       // Reset fields after submission
-      setPatientId("");
+      setPatientIdForDrug("");
       setAllergyName("");
     } catch (err) {
       console.log("Error adding allergy: ", err);
@@ -85,8 +87,8 @@ const AddRecords = ({ contract, isOwner }) => {
             inputs: [
               {
                 placeholder: "Patient ID",
-                value: patientId,
-                setValue: setPatientId,
+                value: patientIdForVaccine,
+                setValue: setPatientIdForVaccine,
               },
               {
                 placeholder: "Vaccine Name",
@@ -102,8 +104,8 @@ const AddRecords = ({ contract, isOwner }) => {
             inputs: [
               {
                 placeholder: "Patient ID",
-                value: patientId,
-                setValue: setPatientId,
+                value: patientIdForDrug,
+                setValue: setPatientIdForDrug,
               },
               {
                 placeholder: "Drug Name",
