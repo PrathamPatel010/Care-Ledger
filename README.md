@@ -44,7 +44,3 @@ CareLedger is a solution focused on trust and control, providing a path toward a
 ![03](snapshots/03.png)
 ![04](snapshots/04.png)
 ![05](snapshots/05.png)
-
-## Video demonstration of working application
-
-<video controls src="snapshots/Video Demonstration.mp4" title="Video Demonstration"></video>
